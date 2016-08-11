@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dist/css/font-awesome.min.css">
+  <link rel="stylesheet" href="dist/css/style.css">
+  <title>Todo list</title>
+</head>
+<body>
+  <div id="app" class="container">
+    <div class="todo-wrapper">
+      <todo-header></todo-header>
+    </div>
+  </div>
+  <template id="todo-header">
+    <div class="todo-header">
+      <div class="overlay"></div>
+      <time class="clearfix">
+        <span class="day">{{ date }}</span>
+        <span class="dayofweek">{{ weekDay }}</span>
+        <span class="month">{{ month }},{{ year }}</span>
+      </time>
+      <div class="add-circle">
+        <i class="fa fa-plus"></i>
+      </div>
+    </div>
+  </template>
+<script src="http://cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="dist/js/scripts.js"></script>
+</body>
+</html>
