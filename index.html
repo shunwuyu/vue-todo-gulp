@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="dist/css/font-awesome.min.css">
+  <link rel="stylesheet" href="dist/css/style.css">
+  <title>Todo list</title>
+</head>
+<body>
+  <div id="app" class="container">
+    <div class="todo-wrapper">
+      <todo-header></todo-header>
+      <div class="todo-content">
+        <todo-report></todo-report>
+        <todo-list :collection="listState.items">
+        </todo-list>
+      </div>
+    </div>
+  </div>
+  <template id="todo-header">
+    <div class="todo-header">
+      <div class="overlay"></div>
+      <time class="clearfix">
+        <span class="day">{{ date }}</span>
+        <span class="dayofweek">{{ weekDay }}</span>
+        <span class="month">{{ month }},{{ year }}</span>
+      </time>
+      <div class="add-circle" @click="add">
+        <i class="fa fa-plus"></i>
+      </div>
+    </div>
+  </template>
+  <template id="todo-report">
+    <div class="todo-content-title">
+      <h2>你的任务</h2>
+      <p class="task-report">
+        <span class="task-remain">{{ taskDone }} 完成</span> / {{ taskTotal }} 任务
+      </p>
+    </div>
+  </template>
+  <template id="todo-list">
+    <ul class="todo-list">
+      <todo-item v-for="item in collection" :model="item"></todo-item>
+    </ul>
+  </template>
+  <template id="todo-item">
+    <li class="todo-item" :class="{'editing':model.isEditing,'task-done':isDone}">
+      <span @click="showLabel" class="label {{ model.label }}">
+        <ul class="action-pick-label action-popup">
+          <li @click="saveLabel('urgent')" class="important">重要</li>
+          <li @click="saveLabel('normal')" class="normal">普通</li>
+          <li @click="saveLabel('other')" class="other">其它</li>
+        </ul>
+      </span>
+      <p class="text" v-if="model.isEditing">
+        <input type="text" v-model="tempText" placeholder="输入一个新的任务并按回车"
+         @keyup.enter="save">
+      </p>
+      <p class="text" v-if="!model.isEditing">{{model.text}}</p>
+      <div class="todo-action" @click="showAction" v-if="!model.isEditing">
+        <span class="more">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <ul class="action-list action-popup">
+          <li @click="markDone" v-if="!isDone">标记完成</li>
+          <li @click="edit" v-if="!isDone">编辑</li>
+          <li @click="delete">删除</li>
+        </ul>
+      </div>
+    </li>
+  </template>
+<script src="http://cdn.bootcss.com/vue/1.0.24/vue.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="dist/js/scripts.js"></script>
+</body>
+</html>
